@@ -1,6 +1,6 @@
 from dataclasses import fields
 from datetime import datetime
-from typing import Any, Callable, Literal, Optional, Sequence
+from typing import Any, Callable, Literal, Optional, Sequence, get_args
 
 import numpy as np
 
@@ -22,8 +22,8 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
     item_iter = line.__iter__()
     for item,field in zip(item_iter,fds):
         tp = field.type
-        if tp is Optional:
-            tp = tp.__args__[0]#type:ignore
+        if tp is hasattr(tp, '__origin__') and getattr(tp, "__origin__") is Optional:
+            tp = get_args(tp)[0]
         if tp is str:
             kwargs[field.name] = item
         elif item == '--':

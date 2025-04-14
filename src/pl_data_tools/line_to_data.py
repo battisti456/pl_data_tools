@@ -19,8 +19,8 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
     cls:type|None = None
     kwargs:dict[str,Any] = {}
     fds = list(fields(_Row_Beginning))
-    signal_values = line[len(fds)-1:]
-    for item,field in zip(line,fds):
+    item_iter = line.__iter__()
+    for item,field in zip(item_iter,fds):
         tp = field.type
         if tp is Optional:
             tp = tp.__args__[0]#type:ignore
@@ -55,9 +55,10 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
 
     signal = np.zeros(
         shape = (kwargs['Signal_Size']),
-        dtype = np.int16
+        dtype = np.float32
     )
-    signal[:] = np.array(signal_values)
+    signal[:] = np.nan
+    signal[:] = np.array(tuple(np.nan if item == '' else item for item in item_iter))
     kwargs['Signal'] = signal
     if cls is None:
         raise Exception("Row did not contain sufficient columns.")

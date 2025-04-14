@@ -38,7 +38,7 @@ class _Row_Ending:
     Gate_stop:int
     Comment:str
     Signal_Size:int
-    Signal:np.ndarray[tuple[int],np.dtype[np.int16]]
+    Signal:np.ndarray[tuple[int],np.dtype[np.float32]]#represented as a float because PL include '' which we would like to be np.nan
 #endregion
 #region type prototypes
 @dataclass

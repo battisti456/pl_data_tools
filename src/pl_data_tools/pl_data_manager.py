@@ -20,7 +20,7 @@ class PL_Data_Manager(PL_Data):
         Args:
             path: path to .csv
         """
-        kwargs:dict[str,Any] = {}
+        kwargs:dict[str,Any] = {"_path":path}
         with PL_CSV_Reader(path) as reader:
             kwargs['PL_Link_Version'] = next(reader)[1]
             next(reader)#Device Data

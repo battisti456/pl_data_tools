@@ -33,7 +33,11 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
             kwargs[field.name] = item == 'Y'
         else:
             assert isinstance(tp,Callable)
-            kwargs[field.name] = tp(item)
+            try:
+                kwargs[field.name] = tp(item)
+            except TypeError as e:
+                e.add_note(f"'{item}' could not be interpreted as '{tp}'")
+                raise e
         if field.name == 'Meas Type':
             match(item):
                 case 'Transmission Time':

@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling","hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = [
+    "src/pl_data_tools"
+]
+
+[project]
+name = "pl_data_tools"
+version = "0.0.1"
+requires-python = ">= 3.12"
+authors = [
+    {name = "Autumn Battisti", email = "battisti456@gmail.com"}
+]
+description = "A module containing tools for working with PL-200 data .csv files in python."
+readme = "README.md"
+keywords = []
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13"
+]
+dependencies = [
+]
+
+[project.urls]
+Homepage = "https://github.com/battisti456/pl_data_tools"

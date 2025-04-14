@@ -41,7 +41,7 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
             except TypeError as e:
                 e.add_note(f"'{item}' could not be interpreted as '{tp}'")
                 raise e
-        if field.name == 'Meas Type':
+        if field.name == 'Meas_Type':
             match(item):
                 case 'Transmission Time':
                     cls = PL_Data_Row_Transmit_Time

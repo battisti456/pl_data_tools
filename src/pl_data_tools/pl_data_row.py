@@ -67,12 +67,14 @@ class _Row_Data_Area_Scan:
 #endregion
 #endregion
 #region subclasses
+@dataclass
 class PL_Data_Row_Transmit_Time(
     _Row_Beginning,
     _Row_Data_Transmit_Time,
     _Row_Ending
 ):
     ...
+@dataclass
 class PL_Data_Row_Area_Scan(
     _Row_Beginning,
     _Row_Data_Area_Scan,

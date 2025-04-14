@@ -58,7 +58,9 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
         dtype = np.float32
     )
     signal[:] = np.nan
-    signal[:] = np.array(tuple(np.nan if item == '' else item for item in item_iter))
+    for i, val in enumerate(item_iter):
+        if val != '':
+            signal[i] = val
     kwargs['Signal'] = signal
     if cls is None:
         raise Exception("Row did not contain sufficient columns.")

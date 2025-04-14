@@ -22,7 +22,7 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
     item_iter = line.__iter__()
     for item,field in zip(item_iter,fds):
         tp = field.type
-        if tp is hasattr(tp, '__origin__') and getattr(tp, "__origin__") is Optional:
+        if hasattr(tp, '__origin__') and getattr(tp, "__origin__") is Optional:
             tp = get_args(tp)[0]
         if tp is str:
             kwargs[field.name] = item

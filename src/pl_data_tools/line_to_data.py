@@ -27,7 +27,7 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
             kwargs[field.name] = item
         elif item == '--':
             kwargs[field.name] = None
-        elif tp is Literal:
+        elif hasattr(tp, '__origin__') and getattr(tp, "__origin__") is Literal:
             kwargs[field.name] = item
         elif tp is bool:
             kwargs[field.name] = item == 'Y'

@@ -53,8 +53,8 @@ class _Row_Data_Area_Scan:
     Raster_X:float
     Raster_Y:float
     _Result:Literal['Time']
-    Distance:Optional[float]
-    Velocity:Optional[float]
+    Distance0:Optional[float]
+    Velocity0:Optional[float]
     Color_Scheme:Literal['Green Smooth']
     Auto_Color_Range:bool
     Minimum:float
@@ -62,8 +62,8 @@ class _Row_Data_Area_Scan:
     X:float
     Y:float
     Time_1:float
-    Distance:Optional[float]
-    Velocity:Optional[float]
+    Distance1:Optional[float]
+    Velocity1:Optional[float]
 #endregion
 #endregion
 #region subclasses

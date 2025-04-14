@@ -1,5 +1,5 @@
 from dataclasses import fields
-from typing import Any, Literal, Optional, Sequence
+from typing import Any, Callable, Literal, Optional, Sequence
 
 import numpy as np
 
@@ -32,7 +32,7 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
         elif tp is bool:
             kwargs[field.name] = item == 'Y'
         else:
-            assert tp is (...)
+            assert isinstance(tp,Callable)
             kwargs[field.name] = tp(item)
         if field.name == 'Meas Type':
             match(item):

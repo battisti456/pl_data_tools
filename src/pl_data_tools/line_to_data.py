@@ -1,4 +1,5 @@
 from dataclasses import fields
+from datetime import datetime
 from typing import Any, Callable, Literal, Optional, Sequence
 
 import numpy as np
@@ -31,6 +32,8 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
             kwargs[field.name] = item
         elif tp is bool:
             kwargs[field.name] = item == 'Y'
+        elif tp is datetime:
+            kwargs[field.name] = datetime.fromisoformat(item)
         else:
             assert isinstance(tp,Callable)
             try:

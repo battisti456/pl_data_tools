@@ -5,7 +5,7 @@ import numpy as np
 
 @dataclass
 class PL_Data:
-    L_Link_Version:str
+    PL_Link_Version:str
     Name:str
     Serial_Number:str
     Software_Version:str

@@ -30,8 +30,8 @@ class _Row_Ending:
     Amplitude:Literal['dB']
     Compr_Strength_Unit:Optional[str]
     Trigger:Literal['auto','manual']
-    Trigger_Amplitude:int
-    Marker_Amplitude:Optional[int]
+    Trigger_Amplitude:float
+    Marker_Amplitude:Optional[float]
     Transmission:Literal['Burst','Continuous']
     Gate_enabled:bool
     Gate_start:int

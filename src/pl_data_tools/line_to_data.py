@@ -51,7 +51,7 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
                     fds.extend(fields(_Row_Data_Area_Scan))
                 case _:
                     raise Exception(f"Encountered unknown measurement type '{item}'.")
-            fds.extend(fields(_Row_Ending))
+            fds.extend(fields(_Row_Ending)[:-1])#exit before signal
 
     signal = np.empty(
         shape = (kwargs['Signal_Size']),

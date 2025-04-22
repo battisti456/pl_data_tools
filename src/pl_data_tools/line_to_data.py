@@ -52,7 +52,10 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
                 case _:
                     raise Exception(f"Encountered unknown measurement type '{item}'.")
             fds.extend(fields(_Row_Ending)[:-1])#exit before signal
-
+    comment:str = kwargs['Comment']
+    comment = comment.replace('&quot','"')#correct pl quotation mark signature
+    comment = comment.replace('&#13','')#remove pl newline signature
+    kwargs['Comment'] = comment
     signal = np.zeros(
         shape = (kwargs['Signal_Size']),
         dtype = np.float32

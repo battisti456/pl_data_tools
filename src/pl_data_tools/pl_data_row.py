@@ -38,7 +38,8 @@ class _Row_Ending:
     Gate_stop:int
     Comment:str
     Signal_Size:int
-    Signal:np.ndarray[tuple[int],np.dtype[np.float32]]#represented as a float because PL include '' which we would like to be np.nan
+    Signal:np.ndarray[tuple[int],np.dtype[np.int16]]
+    "In the tested PL-200 device, the last 4 data points were always 0. You may wish to ignore."
 #endregion
 #region type prototypes
 @dataclass

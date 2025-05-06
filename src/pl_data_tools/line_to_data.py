@@ -52,19 +52,15 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
                 case _:
                     raise Exception(f"Encountered unknown measurement type '{item}'.")
             fds.extend(fields(_Row_Ending)[:-1])#exit before signal
+    if cls is None:
+        raise Exception("Row did not contain sufficient columns.")
     comment:str = kwargs['Comment']
     comment = comment.replace('&quot','"')#correct pl quotation mark signature
     comment = comment.replace('&#13','')#remove pl newline signature
     kwargs['Comment'] = comment
-    signal = np.zeros(
-        shape = (kwargs['Signal_Size']),
-        dtype = np.float32
+    i = len(fields(cls)) - 1
+    kwargs['Signal'] = np.array(
+        object=line[i:i+kwargs['Signal_Size']],
+        dtype=np.int16
     )
-    signal[:] = np.nan
-    for i, val in enumerate(item_iter):
-        if val != '':
-            signal[i] = val
-    kwargs['Signal'] = signal
-    if cls is None:
-        raise Exception("Row did not contain sufficient columns.")
     return cls(**kwargs)

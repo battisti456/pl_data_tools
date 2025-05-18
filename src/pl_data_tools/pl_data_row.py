@@ -10,7 +10,7 @@ import numpy as np
 @dataclass
 class _Row_Beginning:
     SW_Version:str
-    Meas_Type:Literal['Area Scan', 'Transmission Time']
+    Meas_Type:Literal['Area Scan', 'Transmission Time','Line Scan']
     Result:Optional[str]
     Name:str
     Data_and_Time:datetime
@@ -47,6 +47,13 @@ class _Row_Data_Transmit_Time:
     Time_1:float
     Time_2:float
 @dataclass
+class _Row_Data_Line_Scan:
+    Meas:int
+    Scan_Spacing:float
+    Distance:float
+    Time_1:float
+    Velocity:float
+@dataclass
 class _Row_Data_Area_Scan:
     Meas:int
     Measurement_Count_X:int
@@ -72,6 +79,13 @@ class _Row_Data_Area_Scan:
 class PL_Data_Row_Transmit_Time(
     _Row_Beginning,
     _Row_Data_Transmit_Time,
+    _Row_Ending
+):
+    ...
+@dataclass
+class PL_Data_Row_Line_Scan(
+    _Row_Beginning,
+    _Row_Data_Line_Scan,
     _Row_Ending
 ):
     ...

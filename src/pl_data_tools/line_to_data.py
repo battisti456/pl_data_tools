@@ -7,9 +7,11 @@ import numpy as np
 from .pl_data_row import (
     PL_Data_Row,
     PL_Data_Row_Area_Scan,
+    PL_Data_Row_Line_Scan,
     PL_Data_Row_Transmit_Time,
     _Row_Beginning,
     _Row_Data_Area_Scan,
+    _Row_Data_Line_Scan,
     _Row_Data_Transmit_Time,
     _Row_Ending,
 )
@@ -49,6 +51,9 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
                 case 'Area Scan':
                     cls = PL_Data_Row_Area_Scan
                     fds.extend(fields(_Row_Data_Area_Scan))
+                case 'Line_Scan':
+                    cls = PL_Data_Row_Line_Scan
+                    fds.extend(fields(_Row_Data_Line_Scan))
                 case _:
                     raise Exception(f"Encountered unknown measurement type '{item}'.")
             fds.extend(fields(_Row_Ending)[:-1])#exit before signal

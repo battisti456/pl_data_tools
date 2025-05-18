@@ -51,7 +51,7 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
                 case 'Area Scan':
                     cls = PL_Data_Row_Area_Scan
                     fds.extend(fields(_Row_Data_Area_Scan))
-                case 'Line_Scan':
+                case 'Line Scan':
                     cls = PL_Data_Row_Line_Scan
                     fds.extend(fields(_Row_Data_Line_Scan))
                 case _:

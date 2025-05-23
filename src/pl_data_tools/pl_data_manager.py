@@ -42,8 +42,7 @@ class PL_Data_Manager(PL_Data):
     def __iter__(self) -> Iterator[PL_Data_Row]:
         assert self._path is not None
         with PL_CSV_Reader(self._path,True) as reader:
-            line = next(reader)
             for line in reader:
-                if(len(line)) < 3:#skip any more header lines
+                if(len(line)) < 3:
                     continue
                 yield line_to_data(line)

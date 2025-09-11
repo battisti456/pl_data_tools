@@ -7,12 +7,14 @@ import numpy as np
 from .pl_data_row import (
     PL_Data_Row,
     PL_Data_Row_Area_Scan,
-    PL_Data_Row_Line_Scan,
+    PL_Data_Row_Line_Scan_Pulse_Velocity,
+    PL_Data_Row_Line_Scan_Transmit_Time,
     PL_Data_Row_Pulse_Velocity,
     PL_Data_Row_Transmit_Time,
     _Row_Beginning,
     _Row_Data_Area_Scan,
-    _Row_Data_Line_Scan,
+    _Row_Data_Line_Scan_Pulse_Velocity,
+    _Row_Data_Line_Scan_Transmit_Time,
     _Row_Data_Transmit_Time,
     _Row_Ending,
     _Row_Pulse_Velocity,
@@ -54,8 +56,12 @@ def line_to_data(line:Sequence[str]) -> 'PL_Data_Row':
                     cls = PL_Data_Row_Area_Scan
                     fds.extend(fields(_Row_Data_Area_Scan))
                 case 'Line Scan':
-                    cls = PL_Data_Row_Line_Scan
-                    fds.extend(fields(_Row_Data_Line_Scan))
+                    if line[9] in ('Short','Long'):#this format omits distance and velocity columns, meaning it is the shorter transmit time rather than pulse velocity
+                        cls = PL_Data_Row_Line_Scan_Transmit_Time
+                        fds.extend(fields(_Row_Data_Line_Scan_Transmit_Time))
+                    else:
+                        cls = PL_Data_Row_Line_Scan_Pulse_Velocity
+                        fds.extend(fields(_Row_Data_Line_Scan_Pulse_Velocity))
                 case 'Pulse Velocity':
                     cls = PL_Data_Row_Pulse_Velocity
                     fds.extend(fields(_Row_Pulse_Velocity))

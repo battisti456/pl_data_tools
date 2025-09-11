@@ -52,12 +52,17 @@ class _Row_Pulse_Velocity:
     Velocity:float
     Distance:float
 @dataclass
-class _Row_Data_Line_Scan:
+class _Row_Data_Line_Scan_Pulse_Velocity:
     Meas:int
     Scan_Spacing:float
     Distance:float
     Time_1:float
     Velocity:float
+@dataclass
+class _Row_Data_Line_Scan_Transmit_Time:
+    Meas:int
+    Scan_Spacing:float
+    Time_1:float
 @dataclass
 class _Row_Data_Area_Scan:
     Meas:int
@@ -95,9 +100,16 @@ class PL_Data_Row_Pulse_Velocity(
 ):
     ...
 @dataclass
-class PL_Data_Row_Line_Scan(
+class PL_Data_Row_Line_Scan_Transmit_Time(
     _Row_Beginning,
-    _Row_Data_Line_Scan,
+    _Row_Data_Line_Scan_Transmit_Time,
+    _Row_Ending
+):
+    ...
+@dataclass
+class PL_Data_Row_Line_Scan_Pulse_Velocity(
+    _Row_Beginning,
+    _Row_Data_Line_Scan_Pulse_Velocity,
     _Row_Ending
 ):
     ...

@@ -5,17 +5,17 @@ from typing import Any, Iterator, Optional
 import numpy as np
 
 from .line_to_data import line_to_data
-from .pl_csv_reader import NUMBER_ROWS_IN_HEADER, PL_CSV_Reader, ENCODING
+from .pl_csv_reader import PL_CSV_Reader
 from .pl_data import PL_Data
 from .pl_data_row import PL_Data_Row
 
 
 @dataclass
 class PL_Data_Manager(PL_Data):
-    _path:Optional[str|os.PathLike] = None
+    _path:Optional[str|os.PathLike[Any]] = None
     _length:Optional[int] = None
     @classmethod
-    def _load(cls,path:str|os.PathLike):
+    def _load(cls,path:str|os.PathLike[Any]):
         """Loads a Proceq PL-Link exported csv as a python dataclass
 
         Args:
@@ -50,6 +50,8 @@ class PL_Data_Manager(PL_Data):
     def __len__(self):
         assert self._path is not None
         if self._length is None:
-            with open(self._path,'r', encoding = ENCODING) as f:
-                self._length = sum(1 for _ in f)-NUMBER_ROWS_IN_HEADER
+            with PL_CSV_Reader(self._path,True) as reader:
+                self._length = sum(
+                    1 for line in reader if len(line)>=3
+                )
         return self._length

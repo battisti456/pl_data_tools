@@ -50,7 +50,6 @@ class PL_Data_Manager(PL_Data):
     def __len__(self):
         assert self._path is not None
         if self._length is None:
-            f = open(self._path,'r')
-            self._length = sum(1 for _ in f)-NUMBER_ROWS_IN_HEADER
-            f.close()
+            with open(self._path,'r') as f:
+                self._length = sum(1 for _ in f)-NUMBER_ROWS_IN_HEADER
         return self._length

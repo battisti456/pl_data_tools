@@ -5,7 +5,7 @@ from typing import Any, Iterator, Optional
 import numpy as np
 
 from .line_to_data import line_to_data
-from .pl_csv_reader import NUMBER_ROWS_IN_HEADER, PL_CSV_Reader
+from .pl_csv_reader import NUMBER_ROWS_IN_HEADER, PL_CSV_Reader, ENCODING
 from .pl_data import PL_Data
 from .pl_data_row import PL_Data_Row
 
@@ -50,6 +50,6 @@ class PL_Data_Manager(PL_Data):
     def __len__(self):
         assert self._path is not None
         if self._length is None:
-            with open(self._path,'r') as f:
+            with open(self._path,'r', encoding = ENCODING) as f:
                 self._length = sum(1 for _ in f)-NUMBER_ROWS_IN_HEADER
         return self._length

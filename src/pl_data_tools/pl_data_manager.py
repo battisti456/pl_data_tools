@@ -50,5 +50,8 @@ class PL_Data_Manager(PL_Data):
     def __len__(self):
         assert self._path is not None
         if self._length is None:
-            self._length = self._length = sum(1 for _ in self)
+            with PL_CSV_Reader(self._path,True) as reader:
+                self._length = sum(
+                    1 for line in reader if len(line)>=3
+                )
         return self._length

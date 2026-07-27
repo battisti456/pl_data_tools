@@ -44,7 +44,10 @@ class PL_Data_Manager(PL_Data):
         assert self._path is not None
         with PL_CSV_Reader(self._path,True) as reader:
             for line in reader:
-                if(len(line)) < 3:
+                if line[0] in (
+                    "-----------------",# group deliminator
+                    "SW Version"# column title row
+                ):
                     continue
                 yield line_to_data(line)
     def __len__(self):
